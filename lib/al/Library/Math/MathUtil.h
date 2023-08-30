@@ -38,12 +38,15 @@ void calcQuatUp(sead::Vector3f* out, const sead::Quatf& quat);
 void calcQuatGravity(sead::Vector3f* out, const sead::Quatf& quat);
 void calcQuatFront(sead::Vector3f* out, const sead::Quatf& quat);
 
+f32 calcAngleOnPlaneDegree(const sead::Vector3f&, const sead::Vector3f&, const sead::Vector3f&);
+
 void makeMtxRotateTrans(sead::Matrix34f* out, const sead::Vector3f& rotate, const sead::Vector3f& trans);
 void makeMtxFrontUpPos(sead::Matrix34f* out, const sead::Vector3f& front, const sead::Vector3f& up, const sead::Vector3f& pos);
 void makeMtxUpFrontPos(sead::Matrix34f* out, const sead::Vector3f& up, const sead::Vector3f& front, const sead::Vector3f& pos);
 void makeMtxSideFrontPos(sead::Matrix34f* out, const sead::Vector3f& side, const sead::Vector3f& front, const sead::Vector3f& pos);
 void makeQuatAxisRotation(sead::Quatf* out, const sead::Vector3f& dir1, const sead::Vector3f& dir2, const sead::Vector3f& dir3, float);
 
+void rotateVectorDegree(sead::Vector3f* out, const sead::Vector3f& dir, const sead::Vector3f& axis, float angle);
 
 void alongVectorNormalH(sead::Vector3f* out, const sead::Vector3f& param_2, const sead::Vector3f& param_3, const sead::Vector3f& param_4);
 

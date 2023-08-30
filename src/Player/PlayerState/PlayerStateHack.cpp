@@ -74,25 +74,25 @@ void PlayerStateHack::exeHackDemo() {
     sead::Vector3f cameraFront;
     sead::Vector3f reverseCameraFront;
 
-    auto parent = getParent();
+    auto actor = getParent();
     auto hackActor = mHackKeeper->getHack();
 
     if (al::isFirstStep(this)) {
         mAnimator->startAnim("Wait");
-        al::offCollide(parent);
-        al::setVelocityZero(parent);
+        al::offCollide(actor);
+        al::setVelocityZero(actor);
         sead::Matrix34f sideFrontPosMtx = sead::Matrix34f::ident;
         frontDir = {0.0f, 0.0f, 0.0f};
         upDir = {0.0f, 0.0f, 0.0f};
-        al::calcFrontDir(&frontDir, parent);
-        al::calcUpDir(&upDir, parent);
+        al::calcFrontDir(&frontDir, actor);
+        al::calcUpDir(&upDir, actor);
         al::makeMtxSideFrontPos(&sideFrontPosMtx, -upDir, frontDir, mSensorTrans);
         mHackKeeper->appearHackDemoModel(sideFrontPosMtx, 0.02);
     } else if (al::isStep(this, 1)) {
         mModelChanger->hideModel();
     }
-    s32 tmp = mHackDemoStartLength - 4;
-    s32 nerveStep = tmp < 0 ? 0 : tmp;
+
+    s32 nerveStep = sead::Mathi::clampMin(mHackDemoStartLength - 4, 0);
     f32 nerveEastRate;
     if (!al::isFirstStep(this)) {
         if (!al::isLessStep(this, nerveStep)) {
@@ -100,51 +100,53 @@ void PlayerStateHack::exeHackDemo() {
         } else {
             nerveEastRate = al::calcNerveEaseOutValue(this, 0, 5, 0.02, 1.0);
         }
-
     } else {
         nerveEastRate = 1.0f;
     }
+
     if (al::isStep(this, mHackDemoStartLength + 9)) {
         mHackCap->noticeHackMarioEnter();
     }
-    tmp = mHackDemoStartLength - 15;
-    nerveStep = tmp < 0 ? 0 : tmp;
+
+    nerveStep = sead::Mathi::clampMin(mHackDemoStartLength - 15, 0);
     if (al::isStep(this, nerveStep)) {
         mHackCap->emitHackStartEffect();
     }
     if (al::isLessStep(this, mHackDemoStartLength)) {
         f32 nerveRate = al::calcNerveRate(this, mHackDemoStartLength);
-        sead::Vector3f* capTrans = &al::getTrans(mHackCap);
+        sead::Vector3f& capTrans = al::getTrans(mHackCap);
         sead::Vector3f lerpedTrans = {0.0f, 0.0f, 0.0f};
         al::lerpVec(&lerpedTrans, mTrans, al::getTrans(hackActor), nerveRate);
         al::resetPosition(getParent(), lerpedTrans);
         sead::Vector3f beforeLerpSensorTrans = mNewSensorTrans;
-        al::lerpVec(&mNewSensorTrans, mSensorTrans, *capTrans, nerveRate);
-
-        sead::Vector3CalcCommon<f32>::multScalarAdd(mNewSensorTrans, sinf(nerveRate * 0.01745329f * 180.0f) * -400.0f, al::getGravity(getParent()),
-                                                    mNewSensorTrans);
+        al::lerpVec(&mNewSensorTrans, mSensorTrans, capTrans, nerveRate);
+        // f32 someFloat = sinf(nerveRate * 0.01745329f * 180.0f) * -400.0f;
+        f32 angle = sead::Mathf::deg2rad(nerveRate);
+        angle *= 180.f;
+        sead::Vector3CalcCommon<f32>::multScalarAdd(mNewSensorTrans, sinf(angle) * -400.0f, al::getGravity(getParent()), mNewSensorTrans);
         sead::Vector3CalcCommon<f32>::sub(frontDir, mNewSensorTrans, beforeLerpSensorTrans);
-
+        sead::Matrix34f* mtx = &mPossessTraceMtx;
+        sead::Matrix34f* mtx2 = &mDemoModelMtx;
         if (!al::tryNormalizeOrZero(&frontDir)) {
-            sead::Vector3f* actorTrans = &al::getTrans(parent);
-            sead::Vector3CalcCommon<f32>::sub(frontDir, *capTrans, *actorTrans);
+            // sead::Vector3f& actorTrans = al::getTrans(actor);
+            sead::Vector3CalcCommon<f32>::sub(frontDir, capTrans, al::getTrans(actor));
             if (!al::tryNormalizeOrZero(&frontDir)) {
-                al::calcFrontDir(&frontDir, parent);
+                al::calcFrontDir(&frontDir, actor);
             }
         }
-        upDir = -al::getGravity(parent);
+
+        upDir = -al::getGravity(actor);
         if (al::isParallelDirection(upDir, frontDir, 0.01)) {
-            al::calcFrontDir(&upDir, parent);
+            al::calcFrontDir(&upDir, actor);
             if (al::isParallelDirection(upDir, frontDir, 0.01)) {
-                al::calcUpDir(&upDir, parent);
+                al::calcUpDir(&upDir, actor);
             }
         }
-        al::makeMtxFrontUpPos(&mPossessTraceMtx, frontDir, upDir, mNewSensorTrans);
+        al::makeMtxFrontUpPos(mtx, frontDir, upDir, mNewSensorTrans);
         reverseFront = -frontDir;
         downDir = -upDir;
         cameraFront = {0.0f, 0.0f, 0.0f};
-
-        al::calcCameraFront(&cameraFront, parent, 0);
+        al::calcCameraFront(&cameraFront, actor, 0);
         if (al::isParallelDirection(downDir, cameraFront, 0.01)) {
             if (al::isReverseDirection(downDir, cameraFront, 0.01)) {
                 downDir *= -1;
@@ -156,7 +158,8 @@ void PlayerStateHack::exeHackDemo() {
             al::makeQuatAxisRotation(&quat, downDir, reverseCameraFront, reverseFront, 1.0);
             sead::Vector3CalcCommon<f32>::rotate(downDir, quat, downDir);
         }
-        al::makeMtxSideFrontPos(&mDemoModelMtx, reverseFront, downDir, mNewSensorTrans);
+
+        al::makeMtxSideFrontPos(mtx2, reverseFront, downDir, mNewSensorTrans);
         if (al::isStep(this, mHackDemoStartLength - 1)) {
             mHackKeeper->setPuppetable(true);
             al::startHitReactionHitEffect(getParent(), "ひょうい先に入る", al::getTrans(mHackCap));
@@ -250,7 +253,7 @@ void PlayerStateHack::prepareStageStartHack() {
 
 void PlayerStateHack::prepareStartHack(const al::HitSensor* source, const al::HitSensor* target) {
     mHackCap->startHack();
-    
+
     sead::Vector3f upDir;
     al::calcUpDir(&upDir, getParent());
 

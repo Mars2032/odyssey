@@ -4,7 +4,7 @@
 #include <al/Library/Scene/SceneHolder.h>
 #include "Layout/StageSceneLayout.h"
 #include "Player/HackFunction.h"
-#include "Scene/StageSceneFunction.h"
+#include "Scene/SceneFunction.h"
 #include "System/GameDataFunction.h"
 #include "System/GameDataHolderAccessor.h"
 

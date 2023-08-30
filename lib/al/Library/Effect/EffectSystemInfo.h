@@ -3,8 +3,22 @@
 #include "gfx/seadColor.h"
 #include "math/seadMatrix.h"
 #include "math/seadVector.h"
+
+namespace nn {
+namespace vfx {
+class System;
+}  // namespace vfx
+}  // namespace nn
+
 namespace al {
 class IUseEffectKeeper;
+
+class EffectSystemInfo {
+    s32 field_0;
+    nn::vfx::System* mVfxSystem;
+    void* field_10;
+    s32 field_18;
+};
 
 void emitEffectCurrentPos(al::IUseEffectKeeper*, const char*);
 void emitEffect(al::IUseEffectKeeper*, const char*, const sead::Vector3f*);

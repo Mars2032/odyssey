@@ -56,6 +56,8 @@ public:
     void initScreenCoverCtrl();
     void endInit(const al::ActorInitInfo& initInfo);
 
+    al::LiveActorKit* getLiveActorKit() const { return mLiveActorKit; }
+
     al::AudioKeeper* getAudioKeeper() const override;
     al::SceneObjHolder* getSceneObjHolder() const override;
     al::CameraDirector* getCameraDirector() const override;

@@ -30,4 +30,7 @@ public:
     al::PadRumbleKeeper* getPadRumbleKeeper(s32 index) const;
 };
 
+al::LiveActor* tryFindAlivePlayerActorFirst(const al::LiveActor*);
+al::LiveActor* tryFindAlivePlayerActorFirst(const al::PlayerHolder*);
+
 }  // namespace al
