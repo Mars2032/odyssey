@@ -13,7 +13,6 @@ class IUseDimension;
 class PlayerInput {
 public:
     PlayerInput(const al::LiveActor*, const IUsePlayerCollision*, const IUseDimension*);
-    ~PlayerInput() = default;
     void update();
     void updateWallAlong();
     void updateSnapMoveArea();

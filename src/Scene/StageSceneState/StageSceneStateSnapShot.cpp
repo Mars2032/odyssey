@@ -104,6 +104,7 @@ void StageSceneStateSnapShot::exeWait() {
     ScenePlayerFunction::updatePlayerDither(mParent);
     rs::updateKitListPostSnapShot(mParent);
     mParent->getLiveActorKit()->getEffectSystem()->setIsUpdateKit(false);
+
     sead::Vector3f cameraUp = sead::Vector3f::ey;
     al::calcCameraUpDir(&cameraUp, mParent, 0);
     sead::Vector3f cameraLook = sead::Vector3f::ez;
@@ -115,12 +116,11 @@ void StageSceneStateSnapShot::exeWait() {
     cameraAngledUp.setCross(cameraSide, cameraLook);
     al::tryNormalizeOrZero(&cameraAngledUp);
 
-    sead::Vector3f sphereMap = sead::Vector3f(0.0f, 0.0f,
-                                              (!al::isNear(cameraUp, cameraLook, 0.001f) && !al::isNear(cameraAngledUp, cameraLook, 0.001f)) ?
-                                                  al::calcAngleOnPlaneDegree(cameraAngledUp, cameraUp, cameraLook) :
-                                                  0.0f);
+    f32 sphereZ = (!al::isNear(cameraUp, cameraLook, 0.001f) && !al::isNear(cameraAngledUp, cameraLook, 0.001f)) ?
+                      al::calcAngleOnPlaneDegree(cameraAngledUp, cameraUp, cameraLook) :
+                      0.0f;
 
-    alGraphicsFunction::setSphereMapUpdateEveryFrame(mParent, sphereMap);
+    alGraphicsFunction::setSphereMapUpdateEveryFrame(mParent, sead::Vector3f(0.0f, 0.0f, sphereZ));
     if (!mInputSeparator->isTriggerSnapShotMode() && !rs::isTriggerUiCancel(mParent))
         return;
     al::endPausePadRumble(mParent);

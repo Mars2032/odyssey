@@ -10,9 +10,11 @@ class ActorDitherAnimator;
 class PlayerModelHolder;
 
 class PlayerAnimator {
+private:
+    // missing member fields
+
 public:
     PlayerAnimator(const PlayerModelHolder*, al::ActorDitherAnimator*);
-    ~PlayerAnimator() = default;
     void startAnim(const sead::SafeString&);
     void updateAnimFrame();
     void updateModel();

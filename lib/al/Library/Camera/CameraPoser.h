@@ -1,7 +1,7 @@
 #pragma once
 
 #include <al/Library/Area/AreaObjDirector.h>
-#include <al/Library/Audio/AudioKeeper.h>
+#include <al/Library/Audio/System/AudioKeeper.h>
 #include <al/Library/Name/IUseName.h>
 #include <al/Library/Nerve/Nerve.h>
 #include <al/Library/Placement/PlacementInfo.h>

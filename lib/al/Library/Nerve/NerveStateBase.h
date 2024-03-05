@@ -11,7 +11,7 @@ private:
 
 public:
     NerveStateBase(const char* stateName);
-    ~NerveStateBase() {}
+    ~NerveStateBase() override {}
     virtual void init();
     virtual void appear();
     virtual void kill();

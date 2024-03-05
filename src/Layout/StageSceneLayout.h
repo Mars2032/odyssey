@@ -14,11 +14,11 @@ class SimpleLayoutAppearWaitEnd;
 class GamePadPlayStyleInfo;
 
 namespace al {
-    class LayoutActor;
-    class LayoutInitInfo;
-    class PlayerHolder;
-    class SubCameraRenderer;
-} // namespace al
+class LayoutActor;
+class LayoutInitInfo;
+class PlayerHolder;
+class SubCameraRenderer;
+}  // namespace al
 
 class StageSceneLayout : public al::NerveStateBase {
 private:
@@ -35,7 +35,6 @@ private:
     SimpleLayoutAppearWaitEnd* mPlayGuideMenu;
     GamePadPlayStyleInfo* mGamePadPlayStyleInfo;
     al::LayoutActor* mKidsModeLayout;
-
 
 public:
     StageSceneLayout(const char*, const al::LayoutInitInfo&, const al::PlayerHolder*, const al::SubCameraRenderer*);

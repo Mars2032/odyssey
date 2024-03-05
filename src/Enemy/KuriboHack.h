@@ -21,11 +21,10 @@ class DisregardReceiver;
 namespace al {
 class WaterSurfaceFinder;
 class JointSpringControllerHolder;
-
 }  // namespace al
 
 class KuriboHack : public al::LiveActor {
-public:
+private:
     CapTargetInfo* mCapTargetInfo;
     EnemyStateSwoon* mStateSwoon;
     EnemyStateReset* mStateReset;
@@ -74,6 +73,7 @@ public:
     DisregardReceiver* mDisregardReceiver;
     u32 field_318;
 
+public:
     KuriboHack(const char*);
     void init(const al::ActorInitInfo&) override;
     void initAfterPlacement() override;
@@ -89,7 +89,6 @@ public:
     bool receiveMsg(const al::SensorMsg*, al::HitSensor*, al::HitSensor*) override;
     void control() override;
     void updateCollider() override;
-
     bool tryCreateEnemyCap(const al::ActorInitInfo&);
     void setNerveRideOnCommon();
     void resetRideOnPosBottomWithDefaultParam();

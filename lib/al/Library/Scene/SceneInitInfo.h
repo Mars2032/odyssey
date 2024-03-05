@@ -9,6 +9,7 @@ class ScreenCaptureExecutor;
 class AudioDirector;
 
 class SceneInitInfo {
+private:
     const al::GameSystemInfo* mGameSystemInfo;
     al::GameDataHolderBase* mGameDataHolder;
     al::ScreenCaptureExecutor* mScreenCaptureExecutor;

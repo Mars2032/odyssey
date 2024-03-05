@@ -48,3 +48,4 @@ tools/check
 tools/listsym
 tools/decompme
 CMakeFiles/
+main

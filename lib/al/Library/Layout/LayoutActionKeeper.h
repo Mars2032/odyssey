@@ -1,6 +1,8 @@
 #pragma once
 
+#include <al/Library/Name/IUseName.h>
 #include <basis/seadTypes.h>
+
 namespace al {
 class LayoutPaneGroup;
 class LayoutKeeper;
