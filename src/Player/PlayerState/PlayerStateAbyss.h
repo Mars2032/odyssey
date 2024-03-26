@@ -13,7 +13,7 @@ private:
     const PlayerConst* mPlayerConst;
     PlayerRecoverySafetyPoint* mPlayerRecoverySafetyPoint;
     PlayerAnimator* mPlayerAnimator;
-    PlayerStateRecoveryDead* mPlayerStateRecoveryDead;
+    PlayerStateRecoveryDead* mPlayerStateRecoveryDead = nullptr;
 
 public:
     PlayerStateAbyss(al::LiveActor* parent, const PlayerConst* playerConst, PlayerRecoverySafetyPoint* recoverySafetyPoint,

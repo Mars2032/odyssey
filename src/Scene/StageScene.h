@@ -115,7 +115,7 @@ public:
     CinemaCaption* mCinemaCaption;
     StageSceneLayout* mStageSceneLayout;
     bool mIsPlayerHackFukankun;
-    bool mIsKoopaHackDemo;  // inference, only set around KoopaHackFunction of the same name
+    bool mIsKoopaHackDemo;
     al::SimpleLayoutAppearWaitEnd* mScenarioStartLayout;
     al::SimpleLayoutAppearWaitEnd* mWorldStartCountryLayout;
     al::SimpleLayoutAppearWaitEnd* mWorldStartRegionLayout;
