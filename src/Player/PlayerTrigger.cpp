@@ -68,9 +68,22 @@ bool PlayerTrigger::isOn(PlayerTrigger::EMaterialChangeTrigger trigger) const {
 }
 
 bool PlayerTrigger::isOnAnyDamage() const {
-    return isOn(PlayerTrigger::ECollisionTrigger::field_2) || isOn(PlayerTrigger::ECollisionTrigger::field_6) ||
-           !isOn(PlayerTrigger::EReceiveSensorTrigger::field_0) || isOnDamageFire() || isOnEndHackWithDamage() ||
-           isOn(PlayerTrigger::EActionTrigger::field_17);
+    if (isOn(PlayerTrigger::ECollisionTrigger::field_2) || isOn(PlayerTrigger::ECollisionTrigger::field_6))
+        return true;
+
+    if (isOn(PlayerTrigger::EReceiveSensorTrigger::field_0))
+        return true;
+
+    if (isOn(PlayerTrigger::EActionTrigger::field_17))
+        return true;
+
+    if (isOnDamageFire())
+        return true;
+
+    if (isOnEndHackWithDamage())
+        return true;
+
+    return false;
 }
 
 bool PlayerTrigger::isOnCollisionExpandCheck() const {
