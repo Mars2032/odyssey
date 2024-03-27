@@ -47,6 +47,8 @@ void makeMtxSideFrontPos(sead::Matrix34f* out, const sead::Vector3f& side, const
 void makeQuatAxisRotation(sead::Quatf* out, const sead::Vector3f& dir1, const sead::Vector3f& dir2, const sead::Vector3f& dir3, float);
 
 void rotateVectorDegree(sead::Vector3f* out, const sead::Vector3f& dir, const sead::Vector3f& axis, float angle);
+void turnVecToVecRate(sead::Vector3f* out, const sead::Vector3f&, const sead::Vector3f&, f32);
+void scaleVectorDirection(sead::Vector3f* out, const sead::Vector3f&, const sead::Vector3f&, f32);
 
 void alongVectorNormalH(sead::Vector3f* out, const sead::Vector3f& param_2, const sead::Vector3f& param_3, const sead::Vector3f& param_4);
 
@@ -56,5 +58,7 @@ void separateVectorHV(sead::Vector3f*, sead::Vector3f*, const sead::Vector3f&, c
 void lerpVec(sead::Vector2f*, const sead::Vector2f&, const sead::Vector2f&, float);
 void lerpVecHV(sead::Vector3f*, const sead::Vector3f&, const sead::Vector3f&, const sead::Vector3f&, float, float);
 void lerpVec(sead::Vector3f*, const sead::Vector3f&, const sead::Vector3f&, float);
+
+s32 converge(s32 cur, s32 goal, s32 step);
 
 }  // namespace al

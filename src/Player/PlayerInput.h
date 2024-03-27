@@ -104,7 +104,7 @@ public:
     f32 getCameraInputRaw() const;
     sead::Vector2f& getStickCameraSubRaw() const;
     bool isTriggerCameraReset();
-    bool isTriggerCameraSubjective();
+    bool isTriggerCameraSubjective() const;
     bool isHoldBalloonSet();
     bool isHoldCameraZoom();
     bool isHoldCameraSnapShotZoomIn();
