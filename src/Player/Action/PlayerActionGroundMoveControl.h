@@ -41,9 +41,7 @@ private:
     f32 field_7c;
     bool mHasStopped;
     sead::Vector3f field_84;
-    f32 field_90;
-    f32 field_94;
-    f32 field_98;
+    sead::Vector3f field_90;
     bool mIsForceRunCtrlActive;
     f32 field_a0;
     bool mAlwaysFalse;
@@ -70,6 +68,13 @@ public:
     void calcInitBrakeOnCounter();
     void setup(float maxSpeed, float minSpeed, int runFrame, int stickOnBrakeFrame, int brakeFrame, float gravityMove, float, int counterBorder);
     void updateNormalAndSnap(sead::Vector3f*);
+    void reset(const sead::Vector3f&);
+    void update();
+
     void set_field_c4() { field_c4 = true; };
+    void set_field_b8(bool b) { field_b8 = b; };
+    void set_field_b9(bool b) { field_b9 = b; };
+    void set_field_bb(bool b) { field_bb = b; };
     const sead::Vector3f& getGroundNormal() const { return mGroundNormal; };
+    const sead::Vector3f& get_field_90() const { return field_90; };
 };

@@ -9,6 +9,9 @@ class PlayerInput;
 class IUsePlayerCollision;
 
 class PlayerActionAirMoveControl {
+private:
+    char padding_0[0x90];  // member fields missing
+
 public:
     PlayerActionAirMoveControl(al::LiveActor* parent, const PlayerConst* playerConst, const PlayerInput* playerInput,
                                const IUsePlayerCollision* playerCollision, bool);

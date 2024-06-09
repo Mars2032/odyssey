@@ -54,11 +54,16 @@ void alongVectorNormalH(sead::Vector3f* out, const sead::Vector3f& param_2, cons
 
 bool limitLength(sead::Vector3f* out, const sead::Vector3f& vector, float length);
 void separateVectorHV(sead::Vector3f*, sead::Vector3f*, const sead::Vector3f&, const sead::Vector3f&);
+void separateVectorParallelVertical(sead::Vector3f* parallel, sead::Vector3f* vertical, const sead::Vector3f&, const sead::Vector3f&);
 
 void lerpVec(sead::Vector2f*, const sead::Vector2f&, const sead::Vector2f&, float);
 void lerpVecHV(sead::Vector3f*, const sead::Vector3f&, const sead::Vector3f&, const sead::Vector3f&, float, float);
 void lerpVec(sead::Vector3f*, const sead::Vector3f&, const sead::Vector3f&, float);
 
 s32 converge(s32 cur, s32 goal, s32 step);
+
+f32 calcRate01(f32, f32, f32);
+
+f32 easeOut(f32);
 
 }  // namespace al
